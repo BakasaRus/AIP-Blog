@@ -23,7 +23,7 @@ def homepage():
 
 @app.route('/articles/<int:article_id>')
 def get_article(article_id):
-    return str(article_id)
+    return render_template('article.html', article=articles[article_id])
 
 
 if __name__ == '__main__':
