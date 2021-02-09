@@ -15,7 +15,7 @@
                 <hr>
                 <p class="card-text">{{ article.body }}</p>
                 <p class="card-text"><small class="text-muted"></small></p>
-                <a href="/articles/{{ article_id }}" class="btn btn-primary">
+                <a href="{{ url_for('get_article', article_id=article_id) }}" class="btn btn-primary">
                     Читать дальше <i class="bi-arrow-right"></i>
                 </a>
             </div>
