@@ -1,5 +1,5 @@
-from flask import Flask, render_template, abort
-from articles import articles
+from flask import Flask, render_template, abort, request
+from articles import articles, find_by_text
 
 app = Flask(__name__)
 
@@ -15,6 +15,12 @@ def get_article(article_id):
         return render_template('article.html', article=articles[article_id])
     except KeyError:
         abort(404)
+
+
+@app.route('/search')
+def search():
+    text = request.args['text']
+    return render_template('index.html', title='Just Another Blog', articles=find_by_text(text))
 
 
 @app.errorhandler(404)

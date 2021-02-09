@@ -15,3 +15,15 @@ articles = {
         'is_new': False
     },
 }
+
+
+def find_by_text(text: str) -> dict:
+    result = {}
+    text = text.lower()
+    for article_id, article in articles.items():
+        in_body = text in article['body'].lower()
+        in_title = text in article['title'].lower()
+        if in_body or in_title:
+            result[article_id] = article
+
+    return result
