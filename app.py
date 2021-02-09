@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def homepage():
-    return render_template('index.html', title='Just Another Blog', articles=articles)
+    return render_template('index.html', header='Последние статьи', articles=articles)
 
 
 @app.route('/articles/<int:article_id>')
@@ -20,7 +20,7 @@ def get_article(article_id):
 @app.route('/search')
 def search():
     text = request.args['text']
-    return render_template('index.html', title='Just Another Blog', articles=find_by_text(text))
+    return render_template('index.html', header=f'Поиск по слову "{text}"', articles=find_by_text(text))
 
 
 @app.errorhandler(404)
