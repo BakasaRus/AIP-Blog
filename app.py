@@ -1,6 +1,6 @@
 from flask import Flask, render_template, abort, request
 from articles import articles, find_by_text
-from models import db, User
+from models import db, Category
 from flask_migrate import Migrate
 
 app = Flask(__name__)
@@ -31,6 +31,11 @@ def search():
 @app.errorhandler(404)
 def not_found(error):
     return render_template('errors/404.html'), 404
+
+
+@app.context_processor
+def inject_categories():
+    return {'categories': Category.query.all()}
 
 
 if __name__ == '__main__':
