@@ -1,6 +1,6 @@
 from flask import Flask, render_template, abort, request
 from articles import articles, find_by_text
-from models import db, Category
+from models import db, Category, Article
 from flask_migrate import Migrate
 
 app = Flask(__name__)
@@ -11,15 +11,12 @@ migrate = Migrate(app, db)
 
 @app.route('/')
 def homepage():
-    return render_template('index.html', header='Последние статьи', articles=articles)
+    return render_template('index.html', header='Последние статьи', articles=Article.query.all())
 
 
 @app.route('/articles/<int:article_id>')
 def get_article(article_id):
-    try:
-        return render_template('article.html', article=articles[article_id])
-    except KeyError:
-        abort(404)
+    return render_template('article.html', article=Article.query.filter_by(id=article_id).first_or_404())
 
 
 @app.route('/search')
