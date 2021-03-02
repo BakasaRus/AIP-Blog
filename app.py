@@ -1,10 +1,12 @@
 from flask import Flask, render_template, abort, request
 from articles import articles, find_by_text
-from flask_sqlalchemy import SQLAlchemy
+from models import db, User
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.sqlite'
-db = SQLAlchemy(app)
+db.init_app(app)
+migrate = Migrate(app, db)
 
 
 @app.route('/')
