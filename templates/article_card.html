@@ -1,0 +1,22 @@
+<article class="card mb-5 shadow-sm">
+    <div class="card-body">
+        <h3 class="card-title">
+            {{ article.title }}
+            {% if article.is_new %}
+                <small class="text-muted">(Новая)</small>
+            {% endif %}
+        </h3>
+        <hr>
+        <p class="card-text">{{ article.body }}</p>
+        <p class="card-text"><small class="text-muted"></small></p>
+        <a href="{{ url_for('get_article', article_id=article.id) }}" class="btn btn-primary">
+            Читать дальше <i class="bi-arrow-right"></i>
+        </a>
+    </div>
+    <div class="card-footer text-muted">
+        <div class="d-flex justify-content-between my-2">
+            <div><i class="bi-person-fill"></i> {{ article.author.name }}</div>
+            <div><i class="bi-clock"></i> {{ article.created_at }}</div>
+        </div>
+    </div>
+</article>
