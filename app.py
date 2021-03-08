@@ -1,5 +1,5 @@
-from flask import Flask, render_template, abort, request
-from articles import articles, find_by_text
+from flask import Flask, render_template, request, redirect, url_for
+from articles import find_by_text
 from models import db, Category, Article
 from flask_migrate import Migrate
 
@@ -22,6 +22,10 @@ def get_article(article_id):
 @app.route('/search')
 def search():
     text = request.args['text']
+    result = find_by_text(text)
+    if len(result) == 1:
+        index = list(result.keys())[0]
+        return redirect(url_for('get_article', article_id=index))
     return render_template('index.html', header=f'Поиск по слову "{text}"', articles=find_by_text(text))
 
 
