@@ -6,5 +6,12 @@
     {{ article.title }}
 {% endblock %}
 {% block content %}
-    {{ article.body }}
+    <div class="bg-white rounded-2 p-4 shadow-sm">
+        <p>{{ article.body }}</p>
+        <hr>
+        <div class="d-flex justify-content-between text-muted">
+            <div><i class="bi-person-fill"></i> {{ article.author.name }}</div>
+            <div><i class="bi-clock"></i> {{ article.created_at }}</div>
+        </div>
+    </div>
 {% endblock %}
