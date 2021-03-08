@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 from models import db, Category, Article
 from flask_migrate import Migrate
+import locale
 
+locale.setlocale(locale.LC_ALL, '')
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.sqlite'
 db.init_app(app)
@@ -46,6 +48,11 @@ def not_found(error):
 @app.context_processor
 def inject_categories():
     return {'categories': Category.query.all()}
+
+
+@app.template_filter('datetime_format')
+def datetime_format(value, format='%H:%M %x'):
+    return value.strftime(format)
 
 
 if __name__ == '__main__':

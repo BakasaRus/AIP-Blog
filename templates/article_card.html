@@ -16,7 +16,7 @@
     <div class="card-footer text-muted">
         <div class="d-flex justify-content-between my-2">
             <div><i class="bi-person-fill"></i> {{ article.author.name }}</div>
-            <div><i class="bi-clock"></i> {{ article.created_at }}</div>
+            <div><i class="bi-clock"></i> {{ article.created_at | datetime_format }}</div>
         </div>
     </div>
 </article>
