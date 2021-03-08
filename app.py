@@ -32,6 +32,12 @@ def search():
     return render_template('index.html', header=f'Поиск по слову "{text}"', articles=result)
 
 
+@app.route('/category/<int:category_id>')
+def category_articles(category_id):
+    category = Category.query.get_or_404(category_id)
+    return render_template('category.html', category=category)
+
+
 @app.errorhandler(404)
 def not_found(error):
     return render_template('errors/404.html'), 404
