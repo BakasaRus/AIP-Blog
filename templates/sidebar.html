@@ -10,8 +10,7 @@
         {% for category in categories %}
             {% set is_active = current_id == category.id %}
             <a href="{{ url_for('category_articles', category_id=category.id) }}"
-               class="list-group-item list-group-item-action {{ 'active' if is_active else '' }}"
-            >
+               class="list-group-item list-group-item-action {{ 'active' if is_active else '' }}">
                 {{ category.name }}
             </a>
         {% endfor %}
@@ -19,5 +18,7 @@
 </div>
 
 <div>
-    <img class="img-fluid rounded mt-5" src="{{ url_for('static', filename='lenin.gif') }}" alt="Ленин">
+    <img class="img-fluid rounded mt-5"
+         src="{{ url_for('static', filename='itmo_horiz_white_rus.png') }}"
+         alt="Университет ИТМО">
 </div>
