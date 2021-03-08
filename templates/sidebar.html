@@ -1,12 +1,19 @@
+{% if category %}
+    {% set current_id = category.id %}
+{% endif %}
+
 <div class="card shadow-sm">
     <div class="card-header">
         Категории
     </div>
     <div class="list-group list-group-flush">
         {% for category in categories %}
-        <a href="#" class="list-group-item list-group-item-action">
-        {{ category.name }}
-        </a>
+            {% set is_active = current_id == category.id %}
+            <a href="{{ url_for('category_articles', category_id=category.id) }}"
+               class="list-group-item list-group-item-action {{ 'active' if is_active else '' }}"
+            >
+                {{ category.name }}
+            </a>
         {% endfor %}
     </div>
 </div>
