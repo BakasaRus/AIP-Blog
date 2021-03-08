@@ -15,7 +15,7 @@ def homepage():
 
 @app.route('/articles/<int:article_id>')
 def get_article(article_id):
-    return render_template('article.html', article=Article.query.filter_by(id=article_id).first_or_404())
+    return render_template('article.html', article=Article.query.get_or_404(article_id))
 
 
 @app.route('/search')
