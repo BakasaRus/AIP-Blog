@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for
 from models import db, Category, Article
+from forms import ArticleForm
 from flask_migrate import Migrate
 import locale
 
 locale.setlocale(locale.LC_ALL, '')
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.sqlite'
 db.init_app(app)
 migrate = Migrate(app, db)
@@ -17,11 +19,12 @@ def homepage():
 
 @app.route('/articles/new', methods=['GET', 'POST'])
 def create_article():
+    article_form = ArticleForm()
     if request.method == 'POST':
-        title = request.form['title']
-        body = request.form['body']
-        category_id = request.form['category_id']
-        author_id = request.form['author_id']
+        title = article_form.title.data
+        body = article_form.body.data
+        category_id = article_form.category_id.data
+        author_id = article_form.author_id.data
 
         article = Article(title=title, body=body, category_id=category_id, author_id=author_id)
         db.session.add(article)
@@ -29,7 +32,7 @@ def create_article():
 
         return redirect(url_for('homepage'))
 
-    return render_template('new_article.html')
+    return render_template('new_article.html', form=article_form)
 
 
 @app.route('/articles/<int:article_id>')
