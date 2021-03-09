@@ -8,10 +8,22 @@
 {% block content %}
     <form action="{{ url_for('create_article') }}" method="POST">
         {{ form.csrf_token }}
-        <div>{{ form.title.label }} {{ form.title }}</div>
-        <div>{{ form.body.label }} {{ form.body }}</div>
-        <div>{{ form.category_id.label }} {{ form.category_id }}</div>
-        <div>{{ form.author_id.label }} {{ form.author_id }}</div>
+        <div class="mb-3">
+            <label>{{ form.title.label }}</label>
+            {{ form.title(class_="form-control") }}
+        </div>
+        <div class="mb-3">
+            <label>{{ form.body.label }}</label>
+            {{ form.body(class_="form-control") }}
+        </div>
+        <div class="mb-3">
+            <label>{{ form.category_id.label }}</label>
+            {{ form.category_id(class_="form-control") }}
+        </div>
+        <div class="mb-3">
+            <label>{{ form.author_id.label }}</label>
+            {{ form.author_id(class_="form-control") }}
+        </div>
         <button type="submit" class="btn btn-primary">Создать</button>
     </form>
 {% endblock %}
