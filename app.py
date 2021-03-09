@@ -15,6 +15,23 @@ def homepage():
     return render_template('index.html', header='Последние статьи', articles=Article.query.all())
 
 
+@app.route('/articles/new', methods=['GET', 'POST'])
+def create_article():
+    if request.method == 'POST':
+        title = request.form['title']
+        body = request.form['body']
+        category_id = request.form['category_id']
+        author_id = request.form['author_id']
+
+        article = Article(title=title, body=body, category_id=category_id, author_id=author_id)
+        db.session.add(article)
+        db.session.commit()
+
+        return redirect(url_for('homepage'))
+
+    return render_template('new_article.html')
+
+
 @app.route('/articles/<int:article_id>')
 def get_article(article_id):
     return render_template('article.html', article=Article.query.get_or_404(article_id))

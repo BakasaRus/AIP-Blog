@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}
+    Добавление статьи
+{% endblock %}
+{% block header %}
+    Добавление статьи
+{% endblock %}
+{% block content %}
+    <form action="{{ url_for('create_article') }}" method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Название статьи</label>
+            <input type="text" class="form-control" id="title" name="title">
+        </div>
+        <div class="mb-3">
+            <label for="body" class="form-label">Содержание</label>
+            <textarea class="form-control" id="body" name="body" rows="5"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="category_id" class="form-label">ID категории</label>
+            <input type="number" class="form-control" id="category_id" name="category_id">
+        </div>
+        <div class="mb-3">
+            <label for="author_id" class="form-label">ID автора</label>
+            <input type="number" class="form-control" id="author_id" name="author_id">
+        </div>
+        <button type="submit" class="btn btn-primary">Создать</button>
+    </form>
+{% endblock %}
