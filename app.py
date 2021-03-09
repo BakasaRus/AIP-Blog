@@ -20,7 +20,7 @@ def homepage():
 @app.route('/articles/new', methods=['GET', 'POST'])
 def create_article():
     article_form = ArticleForm()
-    if request.method == 'POST':
+    if article_form.validate_on_submit():
         title = article_form.title.data
         body = article_form.body.data
         category_id = article_form.category_id.data
