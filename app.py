@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for
-from models import db, Category, Article
+from flask import Flask, render_template, request, redirect, url_for, abort
+from models import db, Category, Article, User
 from forms import ArticleForm, LoginForm, RegisterForm
 from flask_migrate import Migrate
 import locale
@@ -23,9 +23,21 @@ def login():
     return render_template('login.html', form=login_form)
 
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     register_form = RegisterForm()
+    if register_form.validate_on_submit():
+        email = register_form.email.data
+        name = register_form.name.data
+        password = register_form.password.data
+        existing_user = User.query.filter_by(email=email).first()
+        if existing_user:
+            abort(400)
+        user = User(name=name, email=email)
+        user.set_password(password)
+        db.session.add(user)
+        db.session.commit()
+
     return render_template('register.html', form=register_form)
 
 
