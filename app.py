@@ -17,6 +17,11 @@ def homepage():
     return render_template('index.html', header='Последние статьи', articles=Article.query.all())
 
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
 @app.route('/articles/new', methods=['GET', 'POST'])
 def create_article():
     article_form = ArticleForm()

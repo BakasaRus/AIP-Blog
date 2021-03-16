@@ -10,6 +10,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ url_for('create_article') }}">Добавить статью</a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('login') }}" class="nav-link">Войти</a>
+                </li>
             </ul>
             <form class="d-flex" action="{{ url_for('search') }}">
                 <input name="text" class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">

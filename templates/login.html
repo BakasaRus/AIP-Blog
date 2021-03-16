@@ -1,0 +1,17 @@
+{% extends 'auth.html' %}
+
+{% block content %}
+    <form class="bg-white rounded-2 p-4 shadow-sm">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Пароль</label>
+            <input type="password" class="form-control" id="exampleInputPassword1">
+        </div>
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="submit">Отправить</button>
+        </div>
+    </form>
+{% endblock %}
