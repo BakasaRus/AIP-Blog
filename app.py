@@ -24,9 +24,17 @@ def homepage():
     return render_template('index.html', header='Последние статьи', articles=Article.query.all())
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     login_form = LoginForm()
+    if login_form.validate_on_submit():
+        email = login_form.email.data
+        password = login_form.password.data
+        user = User.query.filter_by(email=email).first()
+        if not (user and user.check_password(password)):
+            abort(403)
+        login_user(user, remember=True)
+        return redirect(url_for('homepage'))
     return render_template('login.html', form=login_form)
 
 
