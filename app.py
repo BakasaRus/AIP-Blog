@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from models import db, Category, Article
-from forms import ArticleForm
+from forms import ArticleForm, LoginForm
 from flask_migrate import Migrate
 import locale
 
@@ -19,7 +19,8 @@ def homepage():
 
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    login_form = LoginForm()
+    return render_template('login.html', form=login_form)
 
 
 @app.route('/articles/new', methods=['GET', 'POST'])
