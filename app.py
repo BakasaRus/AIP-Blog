@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, abort
 from models import db, Category, Article, User
 from forms import ArticleForm, LoginForm, RegisterForm
 from flask_migrate import Migrate
+from flask_login import LoginManager, login_user
 import locale
 
 locale.setlocale(locale.LC_ALL, '')
@@ -10,6 +11,12 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.sqlite'
 db.init_app(app)
 migrate = Migrate(app, db)
+login = LoginManager(app)
+
+
+@login.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 @app.route('/')
@@ -37,7 +44,8 @@ def register():
         user.set_password(password)
         db.session.add(user)
         db.session.commit()
-
+        login_user(user, remember=True)
+        return redirect(url_for('homepage'))
     return render_template('register.html', form=register_form)
 
 
