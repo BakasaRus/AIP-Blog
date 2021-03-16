@@ -1,0 +1,26 @@
+{% extends 'auth.html' %}
+
+{% block content %}
+    <form class="bg-white rounded-2 p-4 shadow-sm" action="{{ url_for('register') }}" method="POST">
+        {{ form.csrf_token }}
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">{{ form.email.label }}</label>
+            {{ form.email(class_='form-control') }}
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">{{ form.name.label }}</label>
+            {{ form.name(class_='form-control') }}
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">{{ form.password.label }}</label>
+            {{ form.password(class_='form-control') }}
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">{{ form.password_confirmation.label }}</label>
+            {{ form.password_confirmation(class_='form-control') }}
+        </div>
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
+        </div>
+    </form>
+{% endblock %}
