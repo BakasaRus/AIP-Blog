@@ -8,8 +8,8 @@ from os import environ
 
 locale.setlocale(locale.LC_ALL, '')
 app = Flask(__name__)
-app.secret_key = environ['APP_SECRET_KEY']
-app.config['SQLALCHEMY_DATABASE_URI'] = environ['DATABASE_URL']
+app.secret_key = environ.get('APP_SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 migrate = Migrate(app, db)
@@ -130,4 +130,5 @@ def datetime_format(value, format='%H:%M %x'):
 
 
 if __name__ == '__main__':
-    app.run()
+    port = environ.get('PORT', 5000)
+    app.run(host='0.0.0.0', port=port)
