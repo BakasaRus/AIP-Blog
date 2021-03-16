@@ -4,11 +4,13 @@ from forms import ArticleForm, LoginForm, RegisterForm
 from flask_migrate import Migrate
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 import locale
+from os import environ
 
 locale.setlocale(locale.LC_ALL, '')
 app = Flask(__name__)
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.sqlite'
+app.secret_key = environ['APP_SECRET_KEY']
+app.config['SQLALCHEMY_DATABASE_URI'] = environ['DATABASE_URL']
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
