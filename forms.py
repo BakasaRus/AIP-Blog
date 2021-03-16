@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField
+from wtforms import StringField, IntegerField, BooleanField
 from wtforms.validators import DataRequired, Optional, Email, EqualTo
-from wtforms.widgets import TextArea, TextInput, PasswordInput
+from wtforms.widgets import TextArea, TextInput, PasswordInput, CheckboxInput
 
 
 class ArticleForm(FlaskForm):
@@ -13,6 +13,7 @@ class ArticleForm(FlaskForm):
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = StringField('Пароль', validators=[DataRequired()], widget=PasswordInput())
+    remember_me = BooleanField('Запомнить меня', widget=CheckboxInput())
 
 
 class RegisterForm(FlaskForm):

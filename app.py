@@ -33,7 +33,7 @@ def login():
         user = User.query.filter_by(email=email).first()
         if not (user and user.check_password(password)):
             abort(403)
-        login_user(user, remember=True)
+        login_user(user, remember=login_form.remember_me.data)
         return redirect(url_for('homepage'))
     return render_template('login.html', form=login_form)
 
@@ -58,7 +58,7 @@ def register():
         user.set_password(password)
         db.session.add(user)
         db.session.commit()
-        login_user(user, remember=True)
+        login_user(user, remember=False)
         return redirect(url_for('homepage'))
     return render_template('register.html', form=register_form)
 

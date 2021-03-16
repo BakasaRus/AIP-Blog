@@ -11,6 +11,12 @@
             <label for="exampleInputEmail1" class="form-label">{{ form.password.label }}</label>
             {{ form.password(class_='form-control') }}
         </div>
+        <div class="form-check mb-3">
+            {{ form.remember_me(class_='form-check-input') }}
+            <label class="form-check-label" for="flexCheckDefault">
+                {{ form.remember_me.label }}
+            </label>
+        </div>
         <div class="d-grid gap-2">
             <button class="btn btn-primary" type="submit">Отправить</button>
         </div>
