@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, abort
 from models import db, Category, Article, User
 from forms import ArticleForm, LoginForm, RegisterForm
 from flask_migrate import Migrate
-from flask_login import LoginManager, login_user, logout_user
+from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 import locale
 
 locale.setlocale(locale.LC_ALL, '')
@@ -64,13 +64,14 @@ def register():
 
 
 @app.route('/articles/new', methods=['GET', 'POST'])
+@login_required
 def create_article():
     article_form = ArticleForm()
     if article_form.validate_on_submit():
         title = article_form.title.data
         body = article_form.body.data
         category_id = article_form.category_id.data
-        author_id = article_form.author_id.data
+        author_id = current_user.id
 
         article = Article(title=title, body=body, category_id=category_id, author_id=author_id)
         db.session.add(article)
@@ -109,6 +110,11 @@ def category_articles(category_id):
 @app.errorhandler(404)
 def not_found(error):
     return render_template('errors/404.html'), 404
+
+
+@app.errorhandler(401)
+def not_found(error):
+    return redirect(url_for('login'))
 
 
 @app.context_processor

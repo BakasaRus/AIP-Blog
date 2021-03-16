@@ -15,23 +15,19 @@
             {% endfor %}
         </ul>
     {% endif %}
-    <form action="{{ url_for('create_article') }}" method="POST">
+    <form class="bg-white rounded-2 p-4 shadow-sm" action="{{ url_for('create_article') }}" method="POST">
         {{ form.csrf_token }}
         <div class="mb-3">
-            <label>{{ form.title.label }}</label>
+            <label class="form-label">{{ form.title.label }}</label>
             {{ form.title(class_="form-control") }}
         </div>
         <div class="mb-3">
-            <label>{{ form.body.label }}</label>
+            <label class="form-label">{{ form.body.label }}</label>
             {{ form.body(class_="form-control") }}
         </div>
         <div class="mb-3">
-            <label>{{ form.category_id.label }}</label>
+            <label class="form-label">{{ form.category_id.label }}</label>
             {{ form.category_id(class_="form-control") }}
-        </div>
-        <div class="mb-3">
-            <label>{{ form.author_id.label }}</label>
-            {{ form.author_id(class_="form-control") }}
         </div>
         <button type="submit" class="btn btn-primary">Создать</button>
     </form>
