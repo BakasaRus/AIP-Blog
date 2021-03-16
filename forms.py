@@ -12,12 +12,12 @@ class ArticleForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired()])
-    password = StringField('Пароль', validators=[DataRequired(), Email()], widget=PasswordInput())
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = StringField('Пароль', validators=[DataRequired()], widget=PasswordInput())
 
 
 class RegisterForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
     name = StringField('Видимое имя на сайте', validators=[DataRequired()])
     password = StringField('Пароль', validators=[DataRequired()], widget=PasswordInput())
-    password_confirmation = StringField('Подтверждение пароля', validators=[DataRequired(), Email(), EqualTo('password')], widget=PasswordInput())
+    password_confirmation = StringField('Подтверждение пароля', validators=[DataRequired(), EqualTo('password')], widget=PasswordInput())
