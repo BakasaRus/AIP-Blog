@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, abort
 from models import db, Category, Article, User
 from forms import ArticleForm, LoginForm, RegisterForm
 from flask_migrate import Migrate
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, logout_user
 import locale
 
 locale.setlocale(locale.LC_ALL, '')
@@ -28,6 +28,12 @@ def homepage():
 def login():
     login_form = LoginForm()
     return render_template('login.html', form=login_form)
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('homepage'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
