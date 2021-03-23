@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, abort
+from flask import Flask, render_template, request, redirect, url_for, abort, flash
 from models import db, Category, Article, User
 from forms import ArticleForm, LoginForm, RegisterForm
 from flask_migrate import Migrate
@@ -34,7 +34,8 @@ def login():
         password = login_form.password.data
         user = User.query.filter_by(email=email).first()
         if not (user and user.check_password(password)):
-            abort(403)
+            flash('Неправильные данные для входа', category='danger')
+            return render_template('login.html', form=login_form)
         login_user(user, remember=login_form.remember_me.data)
         return redirect(url_for('homepage'))
     return render_template('login.html', form=login_form)
@@ -78,6 +79,8 @@ def create_article():
         article = Article(title=title, body=body, category_id=category_id, author_id=author_id)
         db.session.add(article)
         db.session.commit()
+
+        flash(f'Создана статья "{article.title}" (#{article.id})', category='success')
 
         return redirect(url_for('homepage'))
 
