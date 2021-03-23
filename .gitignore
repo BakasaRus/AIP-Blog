@@ -1,2 +1,4 @@
 /venv
 *.sqlite
+.idea/dataSources
+.idea/dataSources.*
